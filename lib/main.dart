@@ -1,9 +1,8 @@
- 
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:tabcontroller/customscrollview.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,17 +20,17 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   TabController tabController;
 
   @override
   Widget build(BuildContext context) {
-    var tabBarItem =  TabBar(
+    var tabBarItem = TabBar(
       tabs: [
-         Tab(
+        Tab(
           text: 'ASCOL',
         ),
-         Tab(
+        Tab(
           text: 'NIST',
         ),
         // Tab(
@@ -42,51 +41,61 @@ class _HomePageState extends State<HomePage>{
       indicatorColor: Colors.redAccent,
     );
 
-    var listItem =  ListView.builder(
+    var listItem = ListView.builder(
       itemCount: 20,
       itemBuilder: (BuildContext context, int index) {
-        return  ListTile(
-          title:  Card(
+        return ListTile(
+          title: Card(
             elevation: 5.0,
-            child:  Container(
+            child: Container(
               alignment: Alignment.center,
-              margin:  EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child:  Text("LIST ITEM $index"),
+              margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Text("LIST ITEM $index"),
             ),
           ),
         );
       },
     );
 
-    var gridView =  GridView.builder(
+    var gridView = GridView.builder(
         itemCount: 21,
         gridDelegate:
-             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) {
-          return  GestureDetector(
-            child:  Card(
+          return GestureDetector(
+            child: Card(
               elevation: 5.0,
-              child:  Container(
+              child: Container(
                 alignment: Alignment.center,
-                child:  Text('ITEM $index'),
+                child: Text('ITEM $index'),
               ),
             ),
           );
         });
 
-    return  DefaultTabController(
+    return DefaultTabController(
       length: 2,
-      child:  Scaffold(
-        appBar:  AppBar(
-          title:  Text('TAB CONTROLLER EG'),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('TAB CONTROLLER EG'),
           bottom: tabBarItem,
         ),
-        body:  TabBarView(
+        body: TabBarView(
           controller: tabController,
           children: [
             listItem,
             gridView,
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          backgroundColor: Colors.blue,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CustomScroll()),
+            );
+          },
         ),
       ),
     );
